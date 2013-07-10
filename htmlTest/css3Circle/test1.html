@@ -68,12 +68,9 @@
 		var comElement = document.getElementsByTagName('li');
 		for (var i=0; i<comElement.length ; i++)
 		{
-			(function() 
-			{
+			(function() {
 				var idx = i;
-				comElement[idx].onclick = function(event) {
-				alert(idx+1);
-			}
+				comElement[idx].onclick = function(event) {alert(idx+1);}
 			})();
 			
 		}
