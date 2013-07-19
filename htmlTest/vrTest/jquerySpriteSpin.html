@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<title>
+SpriteSpin
+</title>
+<script src="http://spritespin.ginie.eu//assets/application-e6e9d3e08ddd7ab8a19bce31956b160c.js" type="text/javascript"></script>
+<link href="http://spritespin.ginie.eu//assets/application-ddfae1c16f938ef8da4514550d94ebc7.css" media="all" rel="stylesheet" type="text/css" />
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="D6jamSVqykZ3GimRFqv7yzLqpsTm6+Z5XP6T9LghXOw=" name="csrf-token" />
+<meta content='SpriteSpin' property='og:title'>
+<meta content='SpriteSpin' property='og:site_name'>
+<meta content='http://spritespin.ginie.eu/' property='og:url'>
+<meta content='Spritespin is a jQuery plugin that is able to play sprite image animations.' property='og:description'>
+<!-- %meta{ :property=>"og:image", :content=> "http://spritespin.ginie.eu/assets/lamp-bubble.jpg" } -->
+<meta content='website' property='og:type'>
+<script>
+  //<![CDATA[
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+  //]]>
+</script>
+</head>
+<body class='spritespin-layout'>
+<div class='page-header nob'>
+<div class='container'>
+<h1>
+SpriteSpin
+<small>
+Examples
+
+</small>
+</h1>
+</div>
+</div>
+<div class='page-body'>
+
+<div class='container'>
+<div class='row'>
+
+<div class='span9'>
+<div>
+  <h3>Show Frame Details</h3>
+
+<div class="example">
+  <style type="text/css">
+    .first, .second, .last{
+      position: absolute;
+      width: 100px;
+      background: white; 
+      opacity: 0.7;
+      padding: 10px;
+      border: 1px dashed black;
+    }
+    .first{
+      top : 40px;
+      left: 40px;
+    }
+
+    .second{
+      right : 40px;
+      bottom: 40px;
+    }
+
+    .last{
+      top: 40px;
+      left: 40px;
+    }
+  </style>
+
+  
+  
+  <div class='spritespin'>
+  </div>
+
+  <div class="btn-toolbar">
+    <div class="btn-group">
+      <button id="prev"  class="btn"><i class="icon-step-backward"></i></button>
+      <button id="next"  class="btn"><i class="icon-step-forward"></i></button>
+    </div>
+  </div>
+
+  <div class="details" style="display:none;">
+    <div class="detail first">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</div>
+    <div class="detail second">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
+    <div class="detail last">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
+  </div>
+
+  <script type="text/javascript">
+  $(function(){
+    
+    // initialize the spritespin
+    $(".spritespin").spritespin({
+      width     : 640,
+      height    : 437,
+      frames    : 34,
+      framesX   : 6,
+      rsX       : 3840,
+      resY      : 2622,
+      sense     : -1,
+      source    : "http://spritespin.ginie.eu/images/spritespin/bike6x6_big.jpg",
+      animate   : false
+    }).bind("onLoad", function(){
+      var $this = $(this), data = $this.data("spritespin");
+      data.stage.find(".detail").detach();       // remove previous details
+      data.stage.prepend($(".details .detail")); // add current details
+      data.stage.find(".detail").hide();         // hide current details
+    }).bind("onFrame", function(){
+      var $this = $(this), data = $this.data("spritespin");
+      if (data.frame >= 31 || data.frame <= 4){
+        data.stage.find(".detail.first").fadeIn()
+      } else {
+        data.stage.find(".detail.first").fadeOut()
+      }
+  
+      if (data.frame >= 5 && data.frame <= 12){
+        data.stage.find(".detail.second").fadeIn()
+      } else {
+        data.stage.find(".detail.second").fadeOut()
+      }
+  
+      if (data.frame >= 19 && data.frame <= 28){
+        data.stage.find(".detail.last").fadeIn()
+      } else {
+        data.stage.find(".detail.last").fadeOut()
+      }
+    });
+    
+    var details = [0, 8, 20];
+    var currentDetail = 0;
+  
+    // button jumping to previous frame
+    // get current frame and update spritespin to the previous frame
+    $( "#prev" ).click(function(){
+      currentDetail -= 1;
+      if (currentDetail < 0){
+        currentDetail = details.length - 1;
+      }
+      if (currentDetail >= details.length){
+        currentDetail = 0;
+      }
+      $(".spritespin").spritespin("animateTo", details[currentDetail]);
+    });
+    
+    // button jumping to next frame
+    $( "#next" ).click(function(){
+      currentDetail += 1;
+      if (currentDetail < 0){
+        currentDetail = details.length - 1;
+      }
+      if (currentDetail >= details.length){
+        currentDetail = 0;
+      }
+      $(".spritespin").spritespin("animateTo", details[currentDetail]);
+    });
+  });
+  </script>
+</div>
+</div>
+<pre class='prettyprint linenums'>&#x000A;  &lt;style type=&quot;text/css&quot;&gt;&#x000A;    .first, .second, .last{&#x000A;      position: absolute;&#x000A;      width: 100px;&#x000A;      background: white; &#x000A;      opacity: 0.7;&#x000A;      padding: 10px;&#x000A;      border: 1px dashed black;&#x000A;    }&#x000A;    .first{&#x000A;      top : 40px;&#x000A;      left: 40px;&#x000A;    }&#x000A;&#x000A;    .second{&#x000A;      right : 40px;&#x000A;      bottom: 40px;&#x000A;    }&#x000A;&#x000A;    .last{&#x000A;      top: 40px;&#x000A;      left: 40px;&#x000A;    }&#x000A;  &lt;/style&gt;&#x000A;&lt;div class=&quot;spritespin&quot;&gt;&#x000A;  &lt;/div&gt;&#x000A;&#x000A;  &lt;div class=&quot;btn-toolbar&quot;&gt;&#x000A;    &lt;div class=&quot;btn-group&quot;&gt;&#x000A;      &lt;button id=&quot;prev&quot; class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-step-backward&quot;&gt;&lt;/i&gt;&lt;/button&gt;&#x000A;      &lt;button id=&quot;next&quot; class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-step-forward&quot;&gt;&lt;/i&gt;&lt;/button&gt;&#x000A;    &lt;/div&gt;&#x000A;  &lt;/div&gt;&#x000A;&#x000A;  &lt;div class=&quot;details&quot; style=&quot;display:none;&quot;&gt;&#x000A;    &lt;div class=&quot;detail first&quot;&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/div&gt;&#x000A;    &lt;div class=&quot;detail second&quot;&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam&lt;/div&gt;&#x000A;    &lt;div class=&quot;detail last&quot;&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam&lt;/div&gt;&#x000A;  &lt;/div&gt;&#x000A;&#x000A;  &lt;script type=&quot;text/javascript&quot;&gt;&#x000A;  $(function(){&#x000A;    &#x000A;    // initialize the spritespin&#x000A;    $(&quot;.spritespin&quot;).spritespin({&#x000A;      width     : 640,&#x000A;      height    : 437,&#x000A;      frames    : 34,&#x000A;      framesX   : 6,&#x000A;      rsX       : 3840,&#x000A;      resY      : 2622,&#x000A;      sense     : -1,&#x000A;      source    : &quot;/images/spritespin/bike6x6_big.jpg&quot;,&#x000A;      animate   : false&#x000A;    }).bind(&quot;onLoad&quot;, function(){&#x000A;      var $this = $(this), data = $this.data(&quot;spritespin&quot;);&#x000A;      data.stage.find(&quot;.detail&quot;).detach();       // remove previous details&#x000A;      data.stage.prepend($(&quot;.details .detail&quot;)); // add current details&#x000A;      data.stage.find(&quot;.detail&quot;).hide();         // hide current details&#x000A;    }).bind(&quot;onFrame&quot;, function(){&#x000A;      var $this = $(this), data = $this.data(&quot;spritespin&quot;);&#x000A;      if (data.frame &gt;= 31 || data.frame &lt;= 4){&#x000A;        data.stage.find(&quot;.detail.first&quot;).fadeIn()&#x000A;      } else {&#x000A;        data.stage.find(&quot;.detail.first&quot;).fadeOut()&#x000A;      }&#x000A;  &#x000A;      if (data.frame &gt;= 5 &amp;&amp; data.frame &lt;= 12){&#x000A;        data.stage.find(&quot;.detail.second&quot;).fadeIn()&#x000A;      } else {&#x000A;        data.stage.find(&quot;.detail.second&quot;).fadeOut()&#x000A;      }&#x000A;  &#x000A;      if (data.frame &gt;= 19 &amp;&amp; data.frame &lt;= 28){&#x000A;        data.stage.find(&quot;.detail.last&quot;).fadeIn()&#x000A;      } else {&#x000A;        data.stage.find(&quot;.detail.last&quot;).fadeOut()&#x000A;      }&#x000A;    });&#x000A;    &#x000A;    var details = [0, 8, 20];&#x000A;    var currentDetail = 0;&#x000A;  &#x000A;    // button jumping to previous frame&#x000A;    // get current frame and update spritespin to the previous frame&#x000A;    $( &quot;#prev&quot; ).click(function(){&#x000A;      currentDetail -= 1;&#x000A;      if (currentDetail &lt; 0){&#x000A;        currentDetail = details.length - 1;&#x000A;      }&#x000A;      if (currentDetail &gt;= details.length){&#x000A;        currentDetail = 0;&#x000A;      }&#x000A;      $(&quot;.spritespin&quot;).spritespin(&quot;animateTo&quot;, details[currentDetail]);&#x000A;    });&#x000A;    &#x000A;    // button jumping to next frame&#x000A;    $( &quot;#next&quot; ).click(function(){&#x000A;      currentDetail += 1;&#x000A;      if (currentDetail &lt; 0){&#x000A;        currentDetail = details.length - 1;&#x000A;      }&#x000A;      if (currentDetail &gt;= details.length){&#x000A;        currentDetail = 0;&#x000A;      }&#x000A;      $(&quot;.spritespin&quot;).spritespin(&quot;animateTo&quot;, details[currentDetail]);&#x000A;    });&#x000A;  });&#x000A;  &lt;/script&gt;</pre>
+</div>
+</div>
+<script>
+  //<![CDATA[
+    $(prettyPrint());
+  //]]>
+</script>
+
+</div>
+</div>
+<div class='page-footer'>
+<footer class='footer container'>
+<p>
+SpriteSpin by
+<a href="http://www.empuxa.com" target="_blank">Alexander Gräfenstein, empuxa GmbH
+</a></p>
+<p>
+Code licensed under the
+<a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+</p>
+<p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="hosted_button_id" value="997NPGE9M3XWL">
+  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+  <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+</form>
+</p>
+</footer>
+</div>
+
+</body>
+</html>
