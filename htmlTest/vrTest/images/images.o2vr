@@ -158,7 +158,7 @@
             <value id="jsxml">false</value>
             <value id="manifest">false</value>
             <value id="showuserdata">true</value>
-            <value id="swf"/>
+            <value id="swf"></value>
             <value id="tablebgcolor">#dddddd</value>
             <value id="tablebordercolor">#777777</value>
             <value id="tabletextcolor">#000000</value>
@@ -220,6 +220,7 @@
         <leveltilefilename>tiles/c%c_l%r_%y_%x.jpg</leveltilefilename>
         <leveltilegeneratefiles>1</leveltilegeneratefiles>
         <leveltileoverlap>1</leveltileoverlap>
+        <skinfile>testSkin.ggsk</skinfile>
       </htmlcss>
       <flash>
         <html>
@@ -333,9 +334,28 @@
       </flash>
     </output>
     <basepath>.</basepath>
-    <hotspots/>
+    <hotspots>
+      <enabled>0</enabled>
+      <hotspot>
+        <type>point</type>
+        <id>hptsotId</id>
+        <skinid>mainAlt</skinid>
+        <pointitem>
+          <column>0</column>
+          <row>0</row>
+          <state>0</state>
+          <xpos>372</xpos>
+          <ypos>392</ypos>
+        </pointitem>
+      </hotspot>
+    </hotspots>
     <imageprocessing>
-      <crop/>
+      <crop>
+        <xpos>0</xpos>
+        <ypos>0</ypos>
+        <width>768</width>
+        <height>768</height>
+      </crop>
       <levels/>
       <sharpen/>
       <masks/>
