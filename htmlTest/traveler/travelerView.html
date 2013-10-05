@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>traveler</title>
+		<meta name="description" content="">
+		<meta name="author" content="Baek Seung Jun">
+		<meta name="viewport" content="width=device-width">
+            
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+            
+        <style type="text/css">
+            * {margin:0; padding:0; line-height:1.3em; vertical-align:middle;}
+            #wrap {width:95%; margin:0 auto; font-size:1.3em; text-align:center;}
+            h1 {margin:20px 0 0 0;}
+            h2 {margin:10px 0 0 0;}
+            fieldset {margin:30px 0 50px 0;}
+            navi {display:block; margin:20px 0 0 0;}
+            dl {margin:0 0 30px 0;}
+            dl dt {margin:10px 0 0 0; color:blue;}
+            dl dd {margin:5px 0 0 0;}
+            dl dd textarea {width:50%; height:7em; margin:0 auto;}
+            .step1, .step2, .step3, .step4 {display:none;}
+            p {margin:20px 0 30px 0;}
+            input {width:50%; margin:0 5px 0 0; padding:5px 5px; font-size:0.7em;}
+            select {font-size:0.7em;}
+            input[type="submit"], input[type="reset"] {display:inline-block; width:auto; margin:0 10px 0 0; padding:20px 35px; font-size:0.7em;}
+            button {display:inline-block; padding:20px 35px; font-size:0.7em; cursor:pointer;}
+            .btnNext {margin:0 10px 0 0;}
+        </style>
+		
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=28a2947ea2e36dad7e13d600fea40d2d"></script>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<h1>Traveler DB</h1>
+				<h2>Travel Info View</h2>
+                <fieldset>
+                <legend>Travel Info Data</legend>
+                    <dl>
+                        <dt>Date *</dt>
+                        <dd>2013-10-06</dd>
+                        <dt>Place *</dt>
+                        <dd>
+                            <p>경복궁</p>
+                            <div id="map" style="border:1px solid #000;"></div>
+                        </dd>
+                        <dt>Photo</dt>
+                        <dd><img src="" alt="" /></dd>
+                        <dt>Time *</dt>
+                        <dd>1H 30M</dd>
+                        <dt>Rest Day</dt>
+                        <dd>Tuesday</dd>
+                        <dt>Transportation</dt>
+                        <dd>Walk</dd>
+                        <dt>State</dt>
+                        <dd>Partial Open</dd>
+                        <dt>Feel *</dt>
+                        <dd>오랜만에 보러 왔는데 요기 좀 별루다</dd>
+                        <dt>Tag</dt>
+                        <dd><a href="">가을</a>, <a href="">전어</a>, <a href="">불꽃놀이</a>, <a href="">시끄럽다</a></dd>
+                        <dt>Event</dt>
+                        <dd>쿠팡에서 지금 50% 할인중!!!</dd>
+                    </dl>
+				</fieldset>
+		</div>
+        
+        <script type="text/javascript">
+            var x=document.getElementById("demo");
+            var getPositionLat;
+            var getPositionLit;
+            var getWindowSizeX = document.getElementsByTagName('body').clientWidth;
+            
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        else {x.innerHTML="Geolocation is not supported by this browser.";}
+        
+        function showPosition(position)
+        {
+            x.innerHTML="Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+            getPositionLat = position.coords.latitude;
+            getPositionLit = position.coords.longitude;
+            getLocation(getPositionLat, getPositionLit);
+        }
+        
+        function getLocation(getPositionLat, getPositionLit){
+            
+            var oSeoulCityPoint = new nhn.api.map.LatLng(getPositionLat, getPositionLit); //강남역 좌표값 ( 위도, 경도 )
+            nhn.api.map.setDefaultPoint('LatLng');
+            
+            var defaultLevel = 10;
+            var oMap = new nhn.api.map.Map(document.getElementById('map'), {
+                    point : oSeoulCityPoint,
+                    zoom : defaultLevel,
+                    enableWheelZoom : true,
+                    enableDragPan : true,
+                    enableDblClickZoom : false,
+                    mapMode : 0,
+                    activateTrafficMap : false,
+                    activateBicycleMap : true,
+                    minMaxLevel : [ 1, 14 ],
+                    size : new nhn.api.map.Size(getWindowSizeX, 400)
+                });
+            var markerCount = 0;
+            
+            var oSize = new nhn.api.map.Size(28, 37);
+            var oOffset = new nhn.api.map.Size(14, 37);
+            var oIcon = new nhn.api.map.Icon('http://static.naver.com/maps2/icons/pin_spot2.png', oSize, oOffset);
+                                           
+            var mapInfoTestWindow = new nhn.api.map.InfoWindow(); // - info window 생성
+                                    mapInfoTestWindow.setVisible(true); // - infowindow 표시 여부 지정.
+                                    oMap.addOverlay(mapInfoTestWindow);     // - 지도에 추가.
+                                           
+            var oLabel = new nhn.api.map.MarkerLabel(); // - 마커 라벨 선언.
+                        oMap.addOverlay(oLabel); // - 마커 라벨 지도에 추가. 기본은 라벨이 보이지 않는 상태로 추가됨.
+                                           
+                        mapInfoTestWindow.attach('changeVisible', function(oCustomEvent) {
+                                                                    if (oCustomEvent.visible) {
+                                                                    oLabel.setVisible(false);
+                                                                    }
+                                                                    });
+                                                                    
+                                                                    
+                                                                    oMap.attach('mouseenter', function(oCustomEvent) {
+                                                                                var oTarget = oCustomEvent.target;
+                                                                                // 마커위에 마우스 올라간거면
+                                                                                if (oTarget instanceof nhn.api.map.Marker) {
+                                                                                var oMarker = oTarget;
+                                                                                oLabel.setVisible(true, oMarker); // - 특정 마커를 지정하여 해당 마커의 title을 보여준다.
+                                                                                }
+                                                                                });
+                                                                                
+                                                                                oMap.attach('mouseleave', function(oCustomEvent) {
+                                                                                            var oTarget = oCustomEvent.target;
+                                                                                            // 마커위에서 마우스 나간거면
+                                                                                            if (oTarget instanceof nhn.api.map.Marker) {
+                                                                                            oLabel.setVisible(false);
+                                                                                            }
+                                                                                            });
+                                                                                            
+                                                                                            oMap.attach('click', function(oCustomEvent) {
+                                                                                                        var oPoint = oCustomEvent.point;
+                                                                                                        var oTarget = oCustomEvent.target;
+                                                                                                        mapInfoTestWindow.setVisible(false);
+                                                                                                        // 마커 클릭하면
+                                                                                                        if (oTarget instanceof nhn.api.map.Marker) {
+                                                                                                        // 겹침 마커 클릭한거면
+                                                                                                        if (oCustomEvent.clickCoveredMarker) {
+                                                                                                        return;
+                                                                                                        }
+                                                                                                        // - InfoWindow 에 들어갈 내용은 setContent 로 자유롭게 넣을 수 있습니다. 외부 css를 이용할 수 있으며,
+                                                                                                        // - 외부 css에 선언된 class를 이용하면 해당 class의 스타일을 바로 적용할 수 있습니다.
+                                                                                                        // - 단, DIV 의 position style 은 absolute 가 되면 안되며,
+                                                                                                        // - absolute 의 경우 autoPosition 이 동작하지 않습니다.
+                                                                                                        mapInfoTestWindow.setContent('<DIV style="border-top:1px solid; border-bottom:2px groove black; border-left:1px solid; border-right:2px groove black;margin-bottom:1px;color:black;background-color:white; width:auto; height:auto;">'+
+                                                                                                                                     '<span style="color: #000000 !important;display: inline-block;font-size: 12px !important;font-weight: bold !important;letter-spacing: -1px !important;white-space: nowrap !important; padding: 2px 2px 2px 2px !important">' +
+                                                                                                                                     'Hello World <br /> ' + oTarget.getPoint()
+                                                                                                                                     +'<span></div>');
+                                                                                                        mapInfoTestWindow.setPoint(oTarget.getPoint());
+                                                                                                        mapInfoTestWindow.setVisible(true);
+                                                                                                        mapInfoTestWindow.setPosition({right : 15, top : 30});
+                                                                                                        mapInfoTestWindow.autoPosition();
+                                                                                                        return;
+                                                                                                        }
+                                                                                                        var oMarker = new nhn.api.map.Marker(oIcon, { title : '마커 : ' + oPoint.toString() });
+                                                                                                        oMarker.setPoint(oPoint);
+                                                                                                        oMap.addOverlay(oMarker);
+                                                                                                        });
+        }
+		</script>
+	</body>
+</html>
