@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title> new document </title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div style="position:fixed;left:20%;top:0;">
+		<p><a id="enable" href="#none">enable_scroll</a></p>
+		<p><a id="disable" href="#none">disable_scroll</a></p>
+		<div id="status">
+		
+		</div>
+	</div>
+	
+	<p id="console" style="position:fixed;left:50%;top:0;"></p>
+	<div id="text" style="width:300px;background:#333;float:right;color:#fff;">
+		scroll ani test
+	</div>
+
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var num = 100;
+		for(var i=0; i<num; i++){
+			$('#text').append('<p>' + i + '</p>');
+		}
+		
+	});
+		$(window).bind('scroll' , function(){
+			//$('html , body').stop().animate({scrollTop : $(window).scrollTop() } , 500 );
+			console.log($(window).scrollTop());
+			$('#console').text($(window).scrollTop());
+		});
+
+		var Request = function(){
+			this.getParameter = function(name){
+				var rtnval = '';
+				var nowAddress = unescape(location.href);
+				var parameters = (nowAddress.slice(nowAddress.indexOf('?')+1,nowAddress.length)).split('&');
+		
+				for(var i = 0 ; i < parameters.length ; i++){
+					var varName = parameters[i].split('=')[0];
+					if(varName.toUpperCase() == name.toUpperCase()){
+						rtnval = parameters[i].split('=')[1];
+						break;
+					}
+				}
+				return rtnval;
+			}
+		}
+		var request = new Request();
+		var paraNum = request.getParameter('num');
+		if(paraNum=='' || paraNum==null){
+			paraNum = 0;
+		}
+
+	</script>
+
+	<script>
+
+	document.getElementById("enable").onclick = function() {
+	  enable_scroll();
+	  document.getElementById("status").innerHTML = "enabled";
+	  document.getElementById("status").className = "enabled";
+	};
+	
+	
+	document.getElementById("disable").onclick = function() {
+	  disable_scroll();
+	  document.getElementById("status").innerHTML = "disabled";
+	  document.getElementById("status").className = "disabled";
+	};
+
+	
+	
+	// left: 37, up: 38, right: 39, down: 40,
+	// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+	var keys = [37, 38, 39, 40];
+	
+	function preventDefault(e) {
+	  e = e || window.event;
+	  if (e.preventDefault)
+	      e.preventDefault();
+	  e.returnValue = false;  
+	}
+	
+	function keydown(e) {
+	    for (var i = keys.length; i--;) {
+	        if (e.keyCode === keys[i]) {
+	            preventDefault(e);
+	            return;
+	        }
+	    }
+	}
+	
+	function wheel(e) {
+	  preventDefault(e);
+	}
+	
+	function disable_scroll() {
+	  if (window.addEventListener) {
+	      window.addEventListener('DOMMouseScroll', wheel, false);
+	  }
+	  window.onmousewheel = document.onmousewheel = wheel;
+	  document.onkeydown = keydown;
+	}
+	
+	function enable_scroll() {
+	    if (window.removeEventListener) {
+	        window.removeEventListener('DOMMouseScroll', wheel, false);
+	    }
+	    window.onmousewheel = document.onmousewheel = document.onkeydown = null;  
+	}
+	</script>
+	
+</body>
+</html>
