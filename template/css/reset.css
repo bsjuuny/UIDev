@@ -1,0 +1,117 @@
+::selection {
+	background: #c80001;
+	color: #fff;
+	text-shadow: none;
+}
+
+html, body {
+	width: 100%;
+	font-size: 12px;
+	font-family: 'NanumGothic', '나눔고딕', dotum, Arial, Tahoma, sans-serif;
+	color: #333;
+}
+
+html, body, form, input, legend, label, select, option, button, fieldset,
+textarea, div, p, pre, blockquote, img, h1, h2, h3, h4, h5, h6, dl, dt, dd,
+ul, ol, li {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	vertical-align: top;
+}
+
+button {
+	cursor: pointer;
+}
+
+ol, ul, dl, li {
+	list-style: none;
+	font-family: 'NanumGothic', '나눔고딕', dotum, Arial, Tahoma, sans-serif;
+}
+
+fieldset, img {
+	border: 0;
+}
+
+input, select, button {
+	font-family: "NanumGothic", "나눔고딕", dotum;
+	vertical-align: middle;
+}
+
+input, textarea {
+	border: 0;
+	-webkit-appearance: none;
+}
+
+a {
+	text-decoration: none;
+	font-family: 'NanumGothic', '나눔고딕', dotum, Arial, Tahoma, sans-serif;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+table {
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+table caption {
+	position: absolute;
+	left: -9999em;
+	top: -9999em;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	overflow: hidden;
+}
+
+select, input, textarea {}
+select {}
+
+article, aside, canvas, details, figcaption, figure, footer, header,
+hgroup, menu, nav, section, summary {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+em {
+	font-style: normal;
+}
+
+legend {
+	position: absolute;
+	top: 0;
+	left: -9999em;
+}
+
+.none {
+	position: absolute;
+	left: -3000px;
+	top: -3000px;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	overflow: hidden;
+}
+
+.skipNavi {
+	position: absolute;
+	left: -9999em;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	overflow: hidden;
+}
+
+.blind {
+	position: absolute;
+	left: -9999em;
+}
