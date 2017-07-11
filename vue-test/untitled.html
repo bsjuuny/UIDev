@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-framework="angular2">
+	<head>
+		<meta charset="utf-8">
+		<title>test1</title>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+		<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.js"></script>
+	</head>
+	<body>
+	123
+		<ul id="example-1">
+			<li v-for="post in posts">{{ post.id }} - {{ post.first_name }}</li>
+		</ul>
+
+		<script type="text/javascript">
+			// var ItemsVue = new Vue({
+			// 	el: '#example-1',
+			// 	data: {
+			// 		posts: []
+			// 	},
+			// 	created() {
+			// 		var self = this;
+			// 		$.ajax({
+			// 			// url: '@Url.Action("GetItems", "Settings")',
+			// 			url: 'http://127.0.0.1:8887/dummy.json',
+			// 			method: 'GET',
+			// 			success: function (data) {
+			// 				self.post = data;
+			// 			},
+			// 			error: function (error) {
+			// 				alert(JSON.stringify(error));
+			// 			}
+			// 		});
+			// 	}
+			// });
+
+
+			var dummyDataBinding = new Vue({
+				el: '#example-1',
+				data: () => ({
+					posts: [],
+					errors: []
+				}),
+
+				// Fetches posts when the component is created.
+				created() {
+					axios.get('./dummy.json')
+					.then(response => {
+						// JSON responses are automatically parsed.
+						this.posts = response.data
+					})
+					.catch(e => {
+						this.errors.push(e)
+					})
+				}
+			});
+
+			// var dummyDataBinding = new Vue({
+			// 	el: '#example-1',
+			// 	data: () => ({
+			// 		posts: [],
+			// 		errors: []
+			// 	}),
+
+			// 	// Fetches posts when the component is created.
+			// 	created() {
+			// 		axios.get('http://127.0.0.1:8887/dummy.json')
+			// 		.then(response => {
+			// 			// JSON responses are automatically parsed.
+			// 			this.posts = response.data
+			// 		})
+			// 		.catch(e => {
+			// 			this.errors.push(e)
+			// 		})
+			// 	}
+			// });
+		</script>
+	</body>
+</html>
