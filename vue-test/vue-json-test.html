@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test Vue.js</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.esm.js"></script> -->
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.js"></script> -->
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js"></script> -->
+
+	<!-- es5 미지원 브라우저 -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js"></script>
+	<!-- orderBy 옵션 -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+	<!-- json import -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+	<!-- vue.js -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+
+</head>
+<body>
+
+	<div id="wrap">
+		<header>
+		</header>
+		
+		<div id="content">
+			<section>
+				<h1>test</h1>
+			</section>
+
+			<div id="example-1">
+				<a href="#">이름</a>
+				<ul>
+					<li v-for="post in posts">
+						<span>{{ post.id }}</span>. /
+						<span>{{ post.first_name }}</span>
+						<span>{{ post.last_name }}</span> /
+						<span>{{ post.country }}</span>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+
+		<footer>
+		</footer>
+	</div>
+	
+	<script type="text/javascript">
+		var dummyDataBinding = new Vue({
+			el: '#example-1',
+			data: {
+				posts: [],
+				errors: []
+			},
+
+			// Fetches posts when the component is created.
+			created: function () {
+				axios.get('/test/dummy.json')
+				.then(function(response) {
+					// JSON responses are automatically parsed.
+					this.posts = response.data
+				}.bind(this))
+				.catch(function(e) {
+					this.errors.push(e)
+				});
+				console.log(this.posts)
+			},
+			computed: {
+				reverse: function() {
+					return this.posts.reverse();
+				},
+
+				orderedUsers: function () {
+					return _.orderBy(this.posts, 'first_name')
+				}
+			},
+			methods: {
+			}
+		});
+	</script>
+</body>
+</html>
