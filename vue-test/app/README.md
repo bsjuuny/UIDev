@@ -8,22 +8,22 @@
     * ├--- css  
     * ├--- js  
 * ├--- node_modules  
-	├--- webpack : 모듈 번들러.  
-	├--- vue-cli : vue.js의 기능을 미리 사용할 수 있도록 정의해 놓은 것.  
-	├--- babel-polyfill : 미지원 환경에서도 해당 내용을 지원하게끔 하는 것.  
-	├--- lodash : 자바스크립트 유틸리티성 라이브러리.  
-	├--- scss : CSS 전처리기.  
-	├--- axios : Promise 기반 HTTP Client  
-	├--- browserify : 의존성 관리 및 번들  
-        ├--- jquery : jquery  
-        ├--- vue-echarts-v3 : 차트 관련 자바스크립트  
-	├--- ...  
+  *	├--- webpack : 모듈 번들러.  
+  *	├--- vue-cli : vue.js의 기능을 미리 사용할 수 있도록 정의해 놓은 것.  
+  *	├--- babel-polyfill : 미지원 환경에서도 해당 내용을 지원하게끔 하는 것.  
+  *	├--- lodash : 자바스크립트 유틸리티성 라이브러리.  
+  *	├--- scss : CSS 전처리기.  
+  *	├--- axios : Promise 기반 HTTP Client  
+  *	├--- browserify : 의존성 관리 및 번들  
+    *   ├--- jquery : jquery  
+    *   ├--- vue-echarts-v3 : 차트 관련 자바스크립트  
+  *	├--- ...  
 * ├--- src  
-	├--- assets  
-		├--- etc : 기타 파일  
-		├--- scss : SCSS 파일  
-	├--- components  
-	├--- router  
+  *	├--- assets  
+    *	├--- etc : 기타 파일  
+    *	├--- scss : SCSS 파일  
+  *	├--- components  
+  *	├--- router  
 * ├--- static  
 * ├--- test  
   *	├--- e2d  
