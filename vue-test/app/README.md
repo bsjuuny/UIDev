@@ -2,8 +2,8 @@
 
 > vue.js
 
-├--- config
-├--- dist
+├--- config \n
+├--- dist \n
 	├--- static
 		├--- css
 		├--- js
@@ -28,7 +28,7 @@
 ├--- test
 	├--- e2d
 	├--- unit
-	
+
 
 ## Build Setup
 
