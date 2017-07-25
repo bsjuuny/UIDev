@@ -15,8 +15,8 @@
   *	├--- scss : CSS 전처리기.  
   *	├--- axios : Promise 기반 HTTP Client  
   *	├--- browserify : 의존성 관리 및 번들  
-    *   ├--- jquery : jquery  
-    *   ├--- vue-echarts-v3 : 차트 관련 자바스크립트  
+  *	├--- jquery : jquery  
+  *	├--- vue-echarts-v3 : 차트 관련 자바스크립트  
   *	├--- ...  
 * ├--- src  
   *	├--- assets  
