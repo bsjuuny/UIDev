@@ -4,10 +4,10 @@
 
 * ├--- config  
 * ├--- dist  
-** ├--- static  
-*** ├--- css  
-*** ├--- js  
-├--- node_modules  
+  * ├--- static  
+    * ├--- css  
+    * ├--- js  
+* ├--- node_modules  
 	├--- webpack : 모듈 번들러.  
 	├--- vue-cli : vue.js의 기능을 미리 사용할 수 있도록 정의해 놓은 것.  
 	├--- babel-polyfill : 미지원 환경에서도 해당 내용을 지원하게끔 하는 것.  
@@ -18,16 +18,16 @@
         ├--- jquery : jquery  
         ├--- vue-echarts-v3 : 차트 관련 자바스크립트  
 	├--- ...  
-├--- src  
+* ├--- src  
 	├--- assets  
 		├--- etc : 기타 파일  
 		├--- scss : SCSS 파일  
 	├--- components  
 	├--- router  
-├--- static  
-├--- test  
-	├--- e2d  
-	├--- unit  
+* ├--- static  
+* ├--- test  
+  *	├--- e2d  
+  *	├--- unit  
 
 
 ## Build Setup
