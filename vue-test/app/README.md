@@ -2,11 +2,11 @@
 
 > vue.js
 
-├--- config  
-├--- dist  
-    ├--- static  
-        ├--- css  
-        ├--- js  
+* ├--- config  
+* ├--- dist  
+** ├--- static  
+*** ├--- css  
+*** ├--- js  
 ├--- node_modules  
 	├--- webpack : 모듈 번들러.  
 	├--- vue-cli : vue.js의 기능을 미리 사용할 수 있도록 정의해 놓은 것.  
