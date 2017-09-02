@@ -1,0 +1,1569 @@
+@charset "utf-8";
+
+@import "partials/reset";
+@import url(https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css);
+
+hr {border:0;}
+.background-gray {background:#f5f5f5;}
+
+textarea:focus, input:focus{outline:none;}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {-webkit-appearance:none;margin:0;}
+button[type="button"], button[type="submit"] {width:154px;height:40px;border-radius:25px;font-size:14px;}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #ccc;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #ccc;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #ccc;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #ccc;
+}
+
+// 기본 버튼 스타일 154*40
+@mixin default_button_style($call) {
+	$width:154px;
+	$height:40px;
+
+	@if $call == basic_button {@include basic_button($width, $height);}
+	@else if $call == basic_disable_button {@include basic_disable_button($width, $height);}
+	@else if $call == fill_button {@include fill_button($width, $height);}
+	@else if $call == fill_disable_button {@include fill_disable_button($width, $height);}
+}
+
+@mixin basic_white_button($width, $height) {width:$width;height:$height;border:2px solid #fff;color:#fff;}
+@mixin basic_button($width, $height) {width:$width;height:$height;border:2px solid #00b1ad;color:#00b1ad;}
+@mixin basic_disable_button($width, $height) {width:$width;height:$height;border:2px solid #c1c3c3;color:#c1c3c3;}
+@mixin fill_button($width, $height) {width:$width;height:$height;background:#00b1ad;color:#fff;}
+@mixin fill_disable_button($width, $height) {width:$width;height:$height;background:#dedede;color:#c1c3c3;}
+
+body {
+	&.main {}
+}
+
+$break-small:320px;
+$break-medium:640px;
+$break-large:1024px;
+
+.stop-scrolling {height:100%;overflow:hidden;}
+
+header {position:fixed;top:0;width:100%;height:100px;background:white;z-index:5;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0);
+	.header-layout {width:943px;margin:13px auto 0;
+		&:after {display:block;content:' ';clear:both;}
+		@media screen and (max-width: $break-large) {
+			width:100%;
+		}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:0;padding:0 5%;
+		}
+	}
+	h1 {float:left;margin:13px 12px 0 0;
+		a {display:block;width:152px;height:46px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1502954261/KaicoinICO/web/logo-kaicoin.png) no-repeat 0 0;text-indent:-9999em;background-size:100%;
+			@media screen and (max-width: $break-medium) {
+				width:120px;height:37px;
+			}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			margin:13px 0 0 40px;
+		}
+	}
+	.header-gnb {float:left;margin:30px 103px 0 0;overflow:hidden;
+		li {float:left;padding:0 0 10px 38px;
+			&:first-child {padding-right:0;}
+			a {color:#414141;font-size:16px;line-height:1.3;
+				&:hover {font-weight:bold;}
+				&.active {border-bottom:2px solid #ffce6f;font-weight:bold;}
+			}
+		}
+		@media screen and (max-width: $break-large) {
+			display:none;
+		}
+	}
+	.header-lnb {float:right;margin:8px 0 0;
+		li {float:left;position:relative;
+			.button-whitepaper {display:inline-block;margin:24px 0 0;padding:0 15px 0 0;font-size:12px;font-weight:bold;color:#414141;}
+			.login {display:inline-block;margin:16px 0 0;font-size:12px;color:#00b1ad;border:2px solid #00b1ad;border-radius:25px;
+				a {display:inline-block;padding:3px 15px 2px;font-weight:bold;font-size:14px;line-height:1.3;color:#00b1ad;}
+			}
+			.logout {display:none;max-width:99px;margin:16px 0 0;padding:5px 15px 3px;font-size:12px;font-weight:bold;color:#00b1ad;border:2px solid #00b1ad;border-radius:25px;cursor:pointer;white-space:nowrap;word-wrap:normal;text-overflow:ellipsis;overflow:hidden;}
+		}
+		.languageArea {width:62px;
+			& > a {display:inline-block;margin:25px 0 0 0;padding:0 9px 0 0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/bul-arrow-down.png) no-repeat 100% 35%;font-size:12px;color:#414141;line-height:1;cursor:pointer;}
+			.select-language {position:absolute;top:23px;left:0;display:none;border:0;font-size:12px;color:#414141;opacity:0;cursor:pointer;}
+			.div-selectbox {position:absolute;top:33px;left:0;display:none;margin:9px 0 0 -2px;background:#fff;border:1px solid #ececec;overflow:hidden;border-radius:5px;box-shadow:4px 4px 10px rgba(0, 0, 0, 0.1);z-index:1;
+				li {float:none;padding:10px;text-align:center;
+					&:last-child {padding-bottom:8px;}
+					a {font-size:12px;color:#414141;line-height:1.3;}
+				}
+			}
+		}
+		.select-menu {position:absolute;top:16px;display:none;left:0;height:23px;border:0;font-size:12px;color:#414141;opacity:0;cursor:pointer;}
+		.div-menu {position:absolute;top:41px;left:0;display:none;margin:9px 0 0 -2px;background:#fff;border:1px solid #ececec;overflow:hidden;border-radius:5px;box-shadow:4px 4px 10px rgba(0, 0, 0, 0.1);z-index:1;
+			li {float:none;padding:10px;
+				&:last-child {padding-bottom:8px;}
+				a {font-size:12px;color:#414141;line-height:1.3;}
+			}
+		}
+		.below-tablet {display:none;
+			a {position:relative;display:block;width:25px;height:19px;margin:19px 0 0 26px;
+				&.active {
+					span:nth-child(1) {animation: span-first-on 0.3s ease-in-out;animation-fill-mode: forwards;}
+					span:nth-child(2) {animation: span-second-on 0.3s ease-in-out;animation-fill-mode: forwards;}
+					span:nth-child(3) {animation: span-third-on 0.3s ease-in-out;animation-fill-mode: forwards;}
+				}
+				@media screen and (max-width: $break-medium) {
+					margin-left:15px;
+				}
+			}
+			span {position:absolute;top:0;left:0;display:block;width:100%;height:3px;background:#00b1ad;
+				&:nth-child(2) {top:8px;}
+				&:nth-child(3) {top:16px;}
+			}
+			@media screen and (max-width: $break-large) {
+				display:block;
+			}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			margin:8px 40px 0 0;
+		}
+		@media screen and (max-width: $break-medium) {
+			margin:0;
+			> li {
+				&:nth-child(1), &:nth-child(2) {display:none;}
+			}
+		}
+
+
+		@keyframes span-first-on {
+			0% {transform: translate(-50%, -300%)}
+			30% {transform: translate(-50%, -50%)}
+			100% {transform: translate(0, 275%) rotate(-45deg)}
+		}
+		@keyframes span-first-off {
+			0% {transform: translate(-50%, -50%) rotate(-45deg)}
+			30% {transform: translate(-50%, -50%) rotate(0deg)}
+			100% {transform: translate(-50%, -300%)}
+		}
+
+		@keyframes span-second-on {
+			0% {transform: translate(-50%, -50%)}
+			50% {transform: translate(-50%, -50%) scale(1)}
+			100% {transform: translate(150%, -50%) scale(0)}
+		}
+		@keyframes span-second-off {
+			0% {transform: translate(-150%, -50%) scale(0)}
+			50% {transform: translate(-50%, -50%) scale(1)}
+			100% {transform: translate(-50%, -50%)}
+		}
+		@keyframes span-third-on {
+			0% {transform: translate(-50%, 200%)}
+			30% {transform: translate(-50%, -50%)}
+			100% {transform: translate(0, -250%) rotate(45deg)}
+		}
+		@keyframes span-third-off {
+			0% {transform: translate(-50%, -50%) rotate(45deg)}
+			30% {transform: translate(-50%, -50%) rotate(0deg)}
+			100% {transform: translate(-50%, 200%)}
+		}
+	}
+	progress {position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background-color: transparent; border: none; color: #00b1ad; -moz-appearance: none; -webkit-appearance: none;
+		&::-webkit-progress-bar { background-color: transparent; }
+		&::-webkit-progress-value { background-color: #00b1ad; }
+		&::-moz-progress-bar {background-color:#00b1ad;}
+	}
+	.progress-container {display: block; width: 100%; height: 2px; background-color: transparent;}
+	.progress-bar {background-color: #00b1ad; width: 0; display: block; height: inherit;}
+
+	&.main {background-color:transparent;
+		h1 a {background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503730709/KaicoinICO/web/logo-kaicoin-white.png);
+			@media screen and (max-width: $break-medium) {
+				width:120px;height:37px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503730709/KaicoinICO/web/logo-kaicoin-white.png) no-repeat 0 0;background-size:100%;
+			}
+		}
+		.header-gnb li a {color:#fff;}
+		.header-lnb {
+			li {
+				.button-whitepaper {color:#fff;}
+				.login {border-color:#fff;
+					a {color:#fff;}
+				}
+				.logout {border-color:#fff;color:#fff;}
+			}
+			.languageArea > a {background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1502959264/KaicoinICO/web/bul-arrow-down-white.png);color:#fff;}
+		}
+		.below-tablet {
+			span {background:#fff;}
+		}
+	}
+	@media screen and (max-width: $break-medium) {
+		height:60px;
+	}
+}
+
+#contents {margin:0 auto;padding:100px 0 0;color:#414141;
+	// 메인
+	.main .bg {position:absolute;top:0;left:0;width:100%;height:755px;margin:0 0 0;overflow:hidden;
+		img {display:block;width:100%;min-height:755px;
+			@media screen and (max-width: $break-medium) {
+				min-height:569px;
+			}
+		}
+		.overlay-opacity {position:absolute;bottom:-16%;width:120%;height:450px;margin:0 0 0 -10%;background:#fff;opacity:0.2;transform:rotate(-5deg);
+			@media screen and (max-width: $break-medium) {
+				bottom:-3%;height:244px;
+			}
+		}
+		.overlay-white {position:absolute;bottom:-22%;width:120%;height:250px;margin:0 0 0 -10%;background:#fff;transform:rotate(5deg);
+			@media screen and (max-width: $break-medium) {
+				bottom:-22%;height:150px;
+			}
+		}
+		@media screen and (max-width: $break-medium) {
+			height:569px;
+		}
+	}
+	.ico-main-title {position:relative;width:1024px;margin:0 auto;padding:0 88px 0 87px;overflow:hidden;
+		.kaicoin {margin:88px 0 0;
+			h2 {font-size:36px;color:#fff;line-height:1.6;
+				.image-kaicoin {display:inline-block;width:159px;height:41px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1504164939/KaicoinICO/web/logo-kaicoin1.png) no-repeat 0 0;background-size:100%;vertical-align:top;text-indent:-9999em;
+					@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+						width:124px;height:32px;background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1504164939/KaicoinICO/web/logo-kaicoin1.png);background-size:100%;
+					}
+					@media screen and (max-width: $break-medium) {
+						width:91px;height:23px;background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1504164939/KaicoinICO/web/logo-kaicoin1.png);background-size:100%;font-weight:bold;
+					}
+				}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					font-size:28px;
+				}
+				@media screen and (max-width: $break-medium) {
+					width:200px;font-size:20px;
+				}
+			}
+			.kaicoin-infomation {margin:18px 0 0;font-size:18px;color:#ececec;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:13px 0 0;font-size:16px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:13px 0 0;font-size:14px;
+				}
+			}
+			button {@include basic_white_button(154px, 32px);margin:38px 0 0;line-height:1.3;
+				span {display:inline-block;vertical-align:-1px;}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:48px 0 0;
+				}
+				@media screen and (max-width: $break-medium) {
+					display:block;margin:33px auto 0;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				margin:52px 0 0;
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:16px 0 0;
+			}
+		}
+		.ico-main-date {float:right;
+			h3 {margin:56px 0 0;font-size:14px;color:#ffce6f;text-align:right;text-decoration:underline;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:111px 0 0;font-size:12px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:80px 0 0;text-align:center;font-size:12px;
+				}
+			}
+			.end-countdown {position:relative;padding:0 0 13px 0;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					padding:0 0 18px 0;
+				}
+			}
+			.count-time {margin:41px 0 0;font-size:50px;text-align:right;color:#fff;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:25px 0 0;font-size:36px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:25px 0 0;font-size:30px;text-align:center;letter-spacing:4px;
+				}
+			}
+			.date {position:absolute;bottom:0;right:0;font-size:12px;color:#fff;line-height:1;opacity:0.8;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					font-size:10px;
+				}
+				@media screen and (max-width: $break-medium) {
+					right:50%;
+				}
+			}
+			.day {margin-right:305px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin-right:218px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 109px 0 0;
+				}
+			}
+			.hour {margin-right:199px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin-right:142px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 24px 0 0;
+				}
+			}
+			.minute {margin-right:97px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin-right:68px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 -61px 0 0;
+				}
+			}
+			.second {margin-right:1px;
+				@media screen and (max-width: $break-medium) {
+					margin:0 -140px 0 0;
+				}
+			}
+			@media screen and (max-width: $break-medium) {
+				float:none;
+			}
+		}
+		.coin-infomation {float:right;margin:37px 0 0;
+			li {float:left;font-size:16px;color:#fff;
+				&:first-child {margin-right:42px;}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					font-size:12px;
+				}
+				@media screen and (max-width: $break-medium) {
+					float:none;padding:5px 0 0;font-size:12px;text-align:center;
+					&:first-child {margin:0;}
+				}
+			}
+			em {font-weight:bold;}
+			strong {font-weight:bold;}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				margin:32px 0 0;
+			}
+			@media screen and (max-width: $break-medium) {
+				float:none;margin:25px 0 0;
+			}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			width:100%;padding:0 11%;
+		}
+		@media screen and (max-width: $break-medium) {
+			width:100%;padding:0 5%;
+		}
+	}
+	.coin-quote {position:relative;padding:90px 0 80px;
+		h3 {position:relative;width:850px;margin:0 auto 0;padding:22px 0 0;font-size:18px;font-weight:bold;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #000;
+				@media screen and (max-width: $break-medium) {
+					left:5%;
+				}
+			}
+			@media screen and (max-width: $break-large) {
+				width:100%;margin:0;padding:23px 0 0;font-size:16px;line-height:1.6;
+			}
+			@media screen and (max-width: $break-medium) {
+				padding:23px 5% 0;
+			}
+		}
+		p {width:846px;margin:20px auto 0;font-size:14px;line-height:1.8;word-wrap:break-word;word-break:break-all;white-space:pre-wrap;
+			@media screen and (max-width: $break-large) {
+				width:100%;font-size:12px;
+			}
+			@media screen and (max-width: $break-medium) {
+				padding:0 5%;font-size:12px;
+			}
+		}
+		ul {width:850px;margin:87px auto 0;overflow:hidden;
+			li {float:left;width:283px;text-align:center;
+				.image-society {display:inline-block;width:217px;height:212px;margin:16px 0 0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503052756/KaicoinICO/web/society.png) no-repeat 0 0;background-size:100%;
+					@media screen and (max-width: $break-large) {
+						width:121px;height:118px;margin:8px 0 0;
+					}
+				}
+				.image-culture {display:inline-block;width:225px;height:228px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503052756/KaicoinICO/web/culture.png) no-repeat 0 0;background-size:100%;
+					@media screen and (max-width: $break-large) {
+						width:125px;height:126px;
+					}
+				}
+				.image-economy {display:inline-block;width:217px;height:212px;margin:16px 0 0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503052756/KaicoinICO/web/economy.png) no-repeat 0 0;background-size:100%;
+					@media screen and (max-width: $break-large) {
+						width:119px;height:114px;margin:12px 0 0;
+					}
+				}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					width:30%;margin:0 3.3% 0 0;
+					&:last-child {margin-right:0;}
+				}
+				@media screen and (max-width: $break-medium) {
+					float:none;width:100%;padding:40px 0 0;
+				}
+			}
+			@media screen and (max-width: $break-large) {
+				width:100%;margin:77px auto 0;
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:37px auto 0;
+			}
+		}
+		dl {margin:44px 0 0;
+			dt {font-size:18px;font-weight:bold;
+				@media screen and (max-width: $break-large) {
+					font-size:16px;
+				}
+			}
+			dd {padding:11px 0 0;font-size:14px;line-height:1.8;letter-spacing:-1px;
+				@media screen and (max-width: $break-large) {
+					padding:16px 0 0;font-size:12px;
+				}
+			}
+			@media screen and (max-width: $break-large) {
+				margin:24px 0 0;
+			}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			padding:148px 10% 82px;
+		}
+	}
+	.contraction {background:#f5f5f5;
+		p {width:850px;margin:0 auto;padding:57px 0 55px;font-size:18px;font-weight:bold;text-align:center;line-height:1.8;
+			@media screen and (max-width: $break-large) {
+				width:100%;font-size:16px;
+				br {content:' ';}
+			}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			padding:0 10%;
+		}
+		@media screen and (max-width: $break-medium) {
+			padding:0 5%;
+		}
+	}
+	.coin-introduce-detailinfomation {width:850px;margin:0 auto;padding:0 0 50px;overflow:hidden;
+		h3 {position:relative;width:415px;margin:50px 0 0;padding:22px 0 0;font-size:18px;font-weight:bold;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #000;}
+			@media screen and (max-width: $break-large) {
+				width:100%;margin:50px 0 0;padding:22px 0 0;font-size:16px;
+			}
+		}
+		.coin-introduce {
+			p {width:415px;margin:25px 0 0;font-size:14px;line-height:1.8;
+				@media screen and (max-width: $break-large) {
+					width:100%;font-size:12px;
+					br { content: ' '; }
+				}
+			}
+		}
+		.coin-detailinfomation {
+			table {table-layout:fixed;width:415px;margin:21px 0 0;border-top:2px solid #f5f5f5;border-bottom:2px solid #f5f5f5;border-collapse:collapse;
+				@media screen and (max-width: $break-large) {
+					width:100%;
+				}
+			}
+			th {padding:8px 0 7px;font-size:14px;text-align:left;
+				&:first-child {width:40%;}
+				@media screen and (max-width: $break-large) {
+					font-size:12px;
+				}
+			}
+			td {padding:8px 0 7px;border-top:1px solid #f5f5f5;font-size:14px;
+				@media screen and (max-width: $break-large) {
+					font-size:12px;
+				}
+			}
+			tr:nth-child(odd) td {background:#fcfcfc;}
+		}
+
+		.left {float:left;
+			@media screen and (max-width: $break-large) {
+				float:none;
+			}
+		}
+		.right {float:right;
+			@media screen and (max-width: $break-large) {
+				float:none;
+			}
+		}
+
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			width:100%;margin:0 auto;padding:0 10% 50px;
+		}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:0 auto;padding:0 5% 40px;
+		}
+	}
+	.coin-equity-structure-bonus {padding:0 0 86px;overflow:hidden;
+		h3 {position:relative;width:850px;margin:55px auto 0;padding:22px 0 0;font-size:18px;font-weight:bold;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #000;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					left:10%;
+				}
+				@media screen and (max-width: $break-medium) {
+					left:5%;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:100%;margin:55px 0 0;padding:22px 10% 0;font-size:16px;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;margin:55px 0 0;padding:22px 5% 0;font-size:16px;
+			}
+		}
+		&:before {display:block;content:'';height:40px;background:#f5f5f5;}
+		.coin-equity-structure {width:996px;margin:0 auto;overflow:hidden;
+			dl {margin:57px 0 0;
+				@media screen and (max-width: $break-medium) {
+					margin:40px 0 0;
+				}
+			}
+			dt {font-size:14px;text-align:center;}
+			dd {font-size:30px;font-weight:bold;text-align:center;}
+			.amount {padding:9px 0 0;}
+			.imagearea {padding:88px 0 0;
+				@media screen and (max-width: $break-medium) {
+					padding:45px 0 0;
+				}
+			}
+			.layout-margin {margin:22px 0 0;
+				@media screen and (max-width: $break-medium) {
+					margin:0;
+				}
+			}
+			.left {float:left;width:498px;
+				.imagearea img {width:341px;height:267px;
+					@media screen and (max-width: $break-medium) {
+						width:280px;height:218px;
+					}
+				}
+				@media screen and (max-width: $break-large) {
+					float:none;width:100%;
+				}
+			}
+			.right {float:right;width:498px;
+				.imagearea img {width:386px;height:280px;
+					@media screen and (max-width: $break-medium) {
+						width:280px;height:203px;
+					}
+				}
+				@media screen and (max-width: $break-large) {
+					float:none;width:100%;
+				}
+			}
+			@media screen and (max-width: $break-large) {
+				width:100%;
+			}
+		}
+
+		.coin-bonus {
+			.bonus-timetable {position:relative;width:816px;height:34px;margin:53px auto 0;padding:0 0 25px 0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/bul-bonus-default.png) no-repeat 0 0;box-sizing:content-box;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					width:100%;height:27px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/w_640,h_27/KaicoinICO/web/bul-bonus-default.png) no-repeat 50% 0;
+				}
+				@media screen and (max-width: $break-medium) {
+					width:100%;height:24px;margin-top:33px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503727384/KaicoinICO/web/bul-bonus-default-small.png) no-repeat 50% 0;
+				}
+			}
+			.week {position:absolute;top:0;left:50%;width:123px;padding:46px 0 0;font-size:12px;color:#c1c3c3;text-align:center;
+				&.active {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/bul-bonus-active.png) no-repeat 0 0;font-weight:bold;color:#414141;
+					@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+						background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/w_97,h_27/v1502866389/KaicoinICO/web/bul-bonus-active.png);
+					}
+					@media screen and (max-width: $break-medium) {
+						background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503727384/KaicoinICO/web/bul-bonus-active-small.png);font-size:10px;
+					}
+				}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					width:97px;height:27px;
+				}
+				@media screen and (max-width: $break-medium) {
+					width:65px;height:24px;padding:36px 0 0;
+					span {display:block;}
+				}
+			}
+			.one {margin:0 0 0 -367px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 -289px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 -137px;
+				}
+			}
+			.two {margin:0 0 0 -215px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 -169px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 -86px;
+				}
+			}
+			.three {margin:0 0 0 -62px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 -49px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 -33px;
+				}
+			}
+			.four {margin:0 0 0 88px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 69px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 19px;
+				}
+			}
+			.five {margin:0 0 0 240px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 188px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 71px;
+				}
+			}
+		}
+	}
+	.coin-roadmap {position:relative;padding:50px 0 72px;background:#414141;
+		h3 {position:relative;width:850px;margin:0 auto;padding:22px 0 0;font-size:18px;font-weight:bold;color:#fff;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #fff;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					left:10%;
+				}
+				@media screen and (max-width: $break-medium) {
+					left:5%;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:100%;margin:0;padding:22px 10% 0;font-size:16px;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;margin:0;padding:22px 5% 0;font-size:16px;
+			}
+		}
+		.timeline {position:absolute;top:71px;left:0;width:100%;height:4px;border:2px solid #929292;border-radius:5px;
+		}
+		.roadmap {width:850px;margin:0 auto;
+			.swiper-slide-active {
+				.roadmap1 {
+					h4 {opacity:1;}
+					dl {opacity:1;}
+					&:before {display:block;content:'';width:123px;height:34px;margin:56px 0 0 -44px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/bul-bonus-active.png) no-repeat 0 0;border-radius:100%;}
+				}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					width:100%;margin:0;padding:0 10%;
+				}
+				@media screen and (max-width: $break-medium) {
+					width:100%;margin:0;padding:0 5%;
+				}
+			}
+			.roadmap1 {width:436px;color:#fff;
+				&:before {display:block;content:'';width:20px;height:20px;margin:63px 0 0;background:#929292;border-radius:100%;}
+				@media screen and (max-width: $break-large) {
+					width:100%;
+				}
+			}
+			.swiper-slide {width:436px;color:#fff;
+				@media screen and (max-width: $break-medium) {
+					width:100%;
+				}
+			}
+			.swiper-slide:first-of-type {margin:0 0 0 44px;
+				@media screen and (max-width: $break-large) {
+					margin:0;
+				}
+			}
+			h4 {margin:10px 0 0;padding:55px 0 0;font-size:18px;opacity:0.4;
+				@media screen and (max-width: $break-medium) {
+					font-size:16px;
+				}
+			}
+			dl {padding:8px 0 0;overflow:hidden;opacity:0.4;}
+			dt {float:left;width:87px;padding:26px 0 0;font-size:14px;line-height:1.8;
+				@media screen and (max-width: $break-medium) {
+					width:30%;font-size:12px;
+				}
+			}
+			dd {float:left;width:349px;padding:26px 0 0;font-size:14px;line-height:1.8;
+				@media screen and (max-width: $break-medium) {
+					width:70%;font-size:12px;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:80%;margin:0 auto;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:90%;margin:0 auto;
+			}
+		}
+		.swiper-button-next {position:absolute;top:50px;left:50%;width:50px;height:50px;margin:0 0 0 375px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503051677/KaicoinICO/web/button-roadmap.png) no-repeat -50px -50px;z-index:0;
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				margin:0 0 0 35%;
+			}
+			@media screen and (max-width: $break-medium) {
+				left:auto;right:5%;margin:0;
+			}
+		}
+		.swiper-button-prev {position:absolute;top:50px;left:50%;width:50px;height:50px;margin:0 0 0 305px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503051677/KaicoinICO/web/button-roadmap.png) no-repeat 0 -50px;z-index:0;
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				margin:0 0 0 24%;
+			}
+			@media screen and (max-width: $break-medium) {
+				left:auto;right:5%;margin:0 60px 0 0;
+			}
+		}
+	}
+	.coin-team {position:relative;padding:50px 0 77px;
+		h3 {position:relative;width:850px;margin:0 auto 0;padding:22px 0 0;font-size:18px;font-weight:bold;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #000;}
+			@media screen and (max-width: $break-large) {
+				width:100%;margin:0;padding:22px 0 0;font-size:16px;
+			}
+		}
+		.kaii {width:502px;margin:78px auto 0;overflow:hidden;
+			li {float:left;width:174px;padding:0 0 0 20px;font-size:14px;
+				&:first-child {width:154px;padding:0;
+					@media screen and (max-width: $break-medium) {
+						width:100%;padding:40px 0 0;
+					}
+				}
+				strong {display:block;padding:38px 0 0;text-align:center;line-height:1.8;
+					@media screen and (max-width: $break-medium) {
+						padding:18px 0 0;
+					}
+				}
+				span {display:block;padding:17px 0 0;text-align:center;line-height:1.8;
+					@media screen and (max-width: $break-medium) {
+						padding:7px 0 0;
+					}
+				}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					strong, span {font-size:12px;}
+				}
+				@media screen and (max-width: $break-medium) {
+					float:none;width:100%;padding:40px 0 0;text-align:center;
+					strong, span {font-size:12px;}
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				margin:67px auto 0;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;margin:0;
+			}
+		}
+		.greenstage {width:676px;margin:95px auto 0;overflow:hidden;
+			li {float:left;width:174px;padding:0 0 0 20px;font-size:14px;
+				&:first-child {width:154px;padding:0;
+					@media screen and (max-width: $break-medium) {
+						width:100%;padding:40px 0 0;
+					}
+				}
+				&:nth-child(even) {padding-top:80px;}
+				&:nth-child(5) {clear:both;width:154px;margin-top:-43px;padding-left:0;}
+				&:nth-child(6), &:nth-child(7), &:nth-child(8) {margin-top:-43px;}
+				strong {display:block;padding:28px 0 0;text-align:center;line-height:1.8;}
+				span {display:block;padding:17px 0 0;text-align:center;line-height:1.8;}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					&:nth-child(4) {clear:both;width:154px;margin:-43px 0 0;padding-top:0;padding-left:0;}
+					&:nth-child(5) {float:left;clear:none;width:174px;margin:-43px 0 0;padding:80px 0 0 20px;}
+					&:nth-child(6) {padding-top:0;}
+					&:nth-child(7) {clear:both;width:154px;margin:-43px 0 0;padding-top:0;padding-left:0;}
+					&:nth-child(8) {}
+					strong, span {font-size:12px;}
+				}
+				@media screen and (max-width: $break-medium) {
+					float:none;width:100%;padding:40px 0 0;text-align:center;
+					&:nth-child(even) {padding-top:40px;}
+					&:nth-child(5) {width:100%;margin-top:0;padding-left:0;}
+					&:nth-child(6), &:nth-child(7), &:nth-child(8) {margin-top:0;}
+					strong {padding:18px 0 0;font-size:12px;}
+					span {padding:7px 0 0;font-size:12px;}
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:502px;margin:95px auto 0;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;margin:20px 0 0;
+			}
+		}
+		&:after {position:absolute;bottom:0;left:0;display:block;content:'';width:100%;height:40px;background:#f5f5f5;}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			padding:50px 10% 77px;
+		}
+		@media screen and (max-width: $break-medium) {
+			padding:50px 5% 77px;
+		}
+	}
+	.coin-faq {position:relative;padding:50px 0 115px;
+		h3 {position:relative;width:850px;margin:0 auto 0;padding:22px 0 0;font-size:18px;font-weight:bold;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #000;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					left:10%;
+				}
+				@media screen and (max-width: $break-medium) {
+					left:5%;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:100%;margin:0;padding:22px 10% 0;font-size:16px;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;margin:0;padding:22px 5% 0;font-size:16px;
+			}
+		}
+		dl {width:850px;margin:47px auto 0;
+			dt {border-top:1px solid #f5f5f5;font-size:14px;line-height:1.8;
+				&:first-child {border-top:0;}
+				a {display:block;height:35px;padding:0 0 0 20px;background:#fcfcfc url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503033028/KaicoinICO/web/bul-arrow-down2.png) no-repeat 98% 50%;font-weight:bold;line-height:36px;color:#414141;}
+				a:hover, a.active {background-color:#00b1ad;background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503033028/KaicoinICO/web/bul-arrow-up.png);color:#fff;}
+				@media screen and (max-width: $break-medium) {
+					font-size:12px;
+				}
+			}
+			dd {display:none;min-height:90px;padding:20px 34px 15px 34px;border-top:1px solid #cdcfcf;border-bottom:1px solid #cdcfcf;font-size:14px;line-height:1.8;
+				@media screen and (max-width: $break-medium) {
+					font-size:12px;
+				}
+			}
+			li {text-indent:-16px;}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:100%;padding:0 10%;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;padding:0 5%;
+			}
+		}
+		&:after {position:absolute;bottom:0;left:0;display:block;content:'';width:100%;height:40px;background:#f5f5f5;}
+	}
+	.coin-whitepaper {padding:40px 0 160px;
+		h3 {position:relative;width:850px;margin:0 auto 0;padding:22px 0 0;font-size:18px;font-weight:bold;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #000;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					left:10%;
+				}
+				@media screen and (max-width: $break-medium) {
+					left:5%;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:100%;margin:0;padding:22px 10% 0;font-size:16px;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;margin:0;padding:22px 5% 0;font-size:16px;
+			}
+		}
+		ul {width:875px;margin:76px auto 0;
+			li {display:inline-block;
+				a {display:block;padding:0 43px;
+					@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+						padding:0;
+					}
+					@media screen and (max-width: $break-medium) {
+						padding:0;
+					}
+				}
+				img {display:block;width:85px;height:130px;}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					padding:40px 8% 0;
+				}
+				@media screen and (max-width: $break-medium) {
+					padding:40px 9% 0;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:100%;margin:0;padding:0 10% 0;text-align:center;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:364px;margin:0 auto;padding:0 5% 0;
+			}
+		}
+		@media screen and (max-width: $break-large) {
+			width:100%;padding:40px 0 60px;
+		}
+	}
+	.partners {margin:0 0 -50px;padding:50px 0 85px;background:#f5f5f5;
+		h3 {position:relative;width:850px;margin:0 auto;padding:22px 0 0;font-size:18px;font-weight:bold;
+			.line {position:absolute;top:0;left:0;display:inline-block;width:67px;border-top:2px solid #000;}
+			@media screen and (max-width: $break-large) {
+				width:100%;margin:0;padding:22px 0 0;font-size:16px;
+			}
+		}
+		.list-partners {width:850px;margin:0 auto;overflow:hidden;
+			li {float:left;margin:0 49px 0 0;padding:39px 0 0;font-size:30px;color:#909090;
+				&:nth-child(4), &:nth-child(11) {clear:both;}
+				.small {font-size:15px;
+					@media screen and (max-width: $break-medium) {
+						font-size:12px;
+					}
+				}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					&:nth-child(11) {clear:none;}
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 24px 0 0;font-size:20px;
+					&:nth-child(4), &:nth-child(11) {clear:none;}
+				}
+			}
+			@media screen and (max-width: $break-large) {
+				width:100%;
+			}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			width:100%;margin:0 0 -50px;padding:50px 10% 85px;
+		}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:0 0 -30px;padding:40px 5% 35px;
+		}
+	}
+
+	//로그인
+	.section-login {width:500px;margin:113px auto 0;padding:65px 86px 96px;background:#fff;box-sizing:border-box;
+		h1 {font-size:24px;font-weight:bold;}
+		h2 {font-size:12px;font-weight:bold;}
+		input {width:100%;height:29px;margin:4px 0 0;border-left:0;border-right:0;border-top:0;border-bottom:1px solid #c1c3c3;font-size:16px;color:#414141;}
+		.input-email {position:relative;margin:55px 0 0;
+			.icon-email {position:absolute;top:21px;right:17px;display:inline-block;width:20px;height:15px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503808225/KaicoinICO/web/icon-mail.png) no-repeat 0 0;background-size:100%;
+				&.focus {background-position:0 -15px;}
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:25px 0 0;
+			}
+		}
+		.input-password {position:relative;margin:44px 0 0;
+			.icon-password {position:absolute;top:15px;right:19px;display:inline-block;width:17px;height:21px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503808226/KaicoinICO/web/icon-password.png) no-repeat 0 0;background-size:100%;
+				&.focus {background-position:0 -21px;}
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:30px 0 0;
+			}
+		}
+		.error {
+			.icon-password {background-position:0 -42px;}
+		}
+		.login-service {overflow:hidden;
+			.login-menu {float:left;margin:28px 0 0 0;
+				li {padding:25px 0 0;}
+				.find-password a {font-size:12px;text-decoration:underline;color:#67624b;line-height:1.3;}
+				.join a {font-size:12px;text-decoration:underline;color:#00b1ad;line-height:1.3;}
+				@media screen and (max-width: $break-medium) {
+					margin:5px 0 0;
+				}
+			}
+			.button-login {float:right;display:inline-block;margin:40px 0 0;@include default_button_style('fill_button');
+				@media screen and (max-width: $break-medium) {
+					margin:20px 0 0;
+				}
+			}
+		}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:10px 0 0;padding:20px 10% 26px;
+		}
+	}
+
+	//회원가입
+	.section-join {width:500px;margin:113px auto 0;padding:65px 86px 96px;background:#fff;box-sizing:border-box;
+		h1 {font-size:24px;font-weight:bold;
+			@media screen and (max-width: $break-medium) {
+				font-size:16px;
+			}
+		}
+		.join-step {margin:30px 0 0;overflow:hidden;
+			li {float:left;width:50%;padding:3px 0 0;font-size:18px;color:#c1c3c3;
+				span {display:inline-block;width:28px;height:28px;margin:-3px 8px 0 0;background:#c1c3c3;font-size:14px;color:#fff;border-radius:100%;text-align:center;vertical-align:middle;line-height:28px;
+					@media screen and (max-width: $break-medium) {
+						width:20px;height:20px;font-size:10px;line-height:20px;
+					}
+				}
+				&.active {color:#00b1ad;
+					span {background:#00b1ad;
+						@media screen and (max-width: $break-medium) {
+							font-size:10px;
+						}
+					}
+				}
+				@media screen and (max-width: $break-medium) {
+					font-size:16px;
+				}
+			}
+		}
+		input {width:100%;height:29px;margin:4px 0 0;border-left:0;border-right:0;border-top:0;border-bottom:1px solid #c1c3c3;font-size:16px;color:#414141;
+			&.error {border-bottom-color:#ef5113;color:#ef5113;}
+		}
+		.join-email {position:relative;margin:44px 0 0;
+			.checkOk {position:absolute;top:20px;right:0;display:none;width:28px;height:21px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503305918/KaicoinICO/web/clipboard-copy.png) no-repeat 0 0;}
+			@media screen and (max-width: $break-medium) {
+				margin:30px 0 0;
+			}
+		}
+		.join-name {margin:42px 0 0;overflow:hidden;
+			.left {float:left;width:48%;margin:0 4% 0 0;
+				@media screen and (max-width: $break-medium) {
+					float:none;width:100%;
+				}
+			}
+			.right {float:left;width:48%;
+				@media screen and (max-width: $break-medium) {
+					float:none;width:100%;margin:20px 0 0;
+				}
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:20px 0 0;overflow:visible;
+			}
+		}
+		.join-password {margin:43px 0 0;
+			.checkPassword {margin:41px 0 0;
+				@media screen and (max-width: $break-medium) {
+					margin:20px 0 0;
+				}
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:20px 0 0;
+			}
+		}
+		.agree-policy {position:relative;margin:32px 0 0;font-size:12px;
+			input[type=checkbox] {position:absolute;top:0;left:0;display:inline-block;width:18px;height:18px;margin:0;padding:0;border:0;vertical-align:middle;opacity:0;
+				& + span {display:inline-block;width:18px;height:18px;margin:0 13px 0 0;background:#fff url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/checkbox.png) no-repeat 0 0;vertical-align:middle;}
+				&:checked + span {background:#fff url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/checkbox.png) no-repeat 0 -18px;}
+			}
+			label {display:inline-block;width:89%;line-height:1.5;vertical-align:top;
+				@media screen and (max-width: $break-medium) {
+					width:86%;
+				}
+			}
+			a {color:#00b1ad;text-decoration:underline;}
+		}
+		.page-navigator {margin:40px 0 0;overflow:hidden;
+			.button-login {float:left;display:inline-block;margin:12px 0 0;font-size:12px;color:#67624b;text-decoration:underline;}
+			.button-next {float:right;display:inline-block;margin:0;@include default_button_style('fill_button');
+				&:disabled {@include default_button_style('fill_disable_button');}
+			}
+		}
+		.icon-send-mail {margin:46px 0 0;
+			@media screen and (max-width: $break-medium) {
+				margin:26px 0 0;
+			}
+		}
+		.mailCertification {
+			h2 {margin:48px 0 0;font-size:16px;font-weight:bold;color:#414141;
+				@media screen and (max-width: $break-medium) {
+					margin:28px 0 0;font-size:14px;
+				}
+			}
+		}
+		.message-send-mail {margin:24px 0 0;font-size:16px;line-height:1.4;
+			em {font-size:16px;color:#00b1ad;
+				@media screen and (max-width: $break-medium) {
+					font-size:14px;
+				}
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:14px 0 0;font-size:14px;
+			}
+		}
+		.resend-mail {display:inline-block;margin:40px 0 0;font-size:12px;font-weight:bold;color:#00b1ad;@include default_button_style('basic_button');
+			@media screen and (max-width: $break-medium) {
+				margin:30px 0 0;
+			}
+		}
+
+		.send-sms {position:relative;
+			.design-selectbox {display:block;margin:55px 0 0;padding:13px 10px 13px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/bul-arrow-down1.png) no-repeat 97% 50%;border:1px solid #d9d9d9;font-size:14px;color:#414141;
+				@media screen and (max-width: $break-medium) {
+					margin:30px 0 0;
+				}
+			}
+			.div-selectbox {position:absolute;top:45px;left:0;display:none;width:100%;max-height:242px;background:#fff;border:1px solid #ececec;overflow:hidden;border-radius:5px;box-shadow:4px 4px 10px rgba(0, 0, 0, 0.1);z-index:1;overflow-y:auto;
+				li {float:none;padding:10px;text-align:center;
+					&:last-child {padding-bottom:8px;}
+					a {font-size:16px;color:#414141;line-height:1.3;}
+				}
+			}
+			.select-national {position:absolute;top:1px;left:0;display:none;width:100%;height:40px;opacity:0;}
+			.input-phone-number {margin:35px 0 0;
+				&:disabled {background:none;color:#c1c3c3;}
+				@media screen and (max-width: $break-medium) {
+					margin:20px 0 0;
+				}
+			}
+			.button-send-sms {margin:30px 0 0;background:#00b1ad;color:#fff;
+				&:disabled {@include default_button_style('fill_disable_button');}
+				@media screen and (max-width: $break-medium) {
+					margin:20px 0 0;
+				}
+			}
+			.save-phone-number {margin:12px 0 0;font-size:10px;color:#ec9c00;}
+		}
+		.resend-sms {display:none;margin:35px 0 0;border-top:2px dotted #c1c3c3;overflow:hidden;
+			.certification {margin:24px 0 0;overflow:hidden;
+				h3 {padding:0 0 8px;font-size:12px;font-weight:bold;}
+			}
+			.input-certification-number {float:left;width:77%;margin:0;
+				&:disabled {background:none;color:#c1c3c3;}
+			}
+			.certification-count {float:right;margin:0;padding:0 8px 0 0;font-size:16px;font-weight:bold;color:#ef5113;}
+			.certification-navigator {clear:both;overflow:hidden;
+				.button-resend-sms {float:left;width:auto;height:auto;margin:54px 0 0;color:#67624b;text-decoration:underline;
+					&:disabled {opacity:0.3;cursor:auto;}
+					@media screen and (max-width: $break-medium) {
+						margin:34px 0 0;
+					}
+				}	
+				.button-certification-complete {float:right;margin:40px 0 0;background:#00b1ad;font-weight:bold;color:#fff;
+					&:disabled {background:#dedede;color:#c1c3c3;}
+					@media screen and (max-width: $break-medium) {
+						margin:20px 0 0;
+					}
+				}
+			}
+			@media screen and (max-width: $break-medium) {
+				margin:20px 0 0;
+			}
+		}
+		p.error {display:none;margin:11px 0 0;padding:0 0 0 18px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503807641/KaicoinICO/web/bul-error.png) no-repeat 1px 50%;background-size:15px 15px;font-size:12px;color:#ef5113;}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:10px 0 0;padding:20px 10%;
+		}
+	}
+
+	// 비밀번호 재설정
+	.section-reset {width:500px;margin:113px auto 0;padding:65px 86px 96px;background:#fff;box-sizing:border-box;
+		h1 {font-size:24px;font-weight:bold;
+			@media screen and (max-width: $break-medium) {
+				font-size:20px;
+			}
+		}
+		h2 {margin:34px 0 0;font-size:16px;font-weight:bold;color:#414141;
+			@media screen and (max-width: $break-medium) {
+				margin:20px 0 0;
+			}
+		}
+		h3 {margin:31px 0 0;font-size:12px;font-weight:bold;}
+		input {width:100%;height:29px;margin:4px 0 0;border-left:0;border-right:0;border-top:0;border-bottom:1px solid #c1c3c3;font-size:16px;color:#414141;
+			&.error {border-bottom-color:#ef5113;color:#ef5113;}
+		}
+		.input-certification-number {float:left;width:77%;margin:0;
+			&:disabled {background:none;color:#c1c3c3;}
+		}
+		.certification-count {float:right;margin:0;padding:0 8px 0 0;font-size:16px;font-weight:bold;color:#ef5113;}
+		.sms-infomation {margin:34px 0 0;font-size:16px;font-weight:bold;color:#414141;
+			@media screen and (max-width: $break-medium) {
+				margin:20px 0 0;
+			}
+		}
+		.button-check-email {margin:40px 0 0;@include default_button_style('fill_button');
+			&:disabled {@include default_button_style('fill_disable_button');}
+		}
+		p.error {display:none;margin:11px 0 0;padding:0 0 0 18px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503807641/KaicoinICO/web/bul-error.png) no-repeat 1px 50%;background-size:15px 15px;font-size:12px;color:#ef5113;}
+		.certification-navigator {clear:both;overflow:hidden;
+			.button-resend-sms {float:left;width:auto;height:auto;margin:54px 0 0;color:#67624b;text-decoration:underline;
+				&:disabled {opacity:0.3;}
+			}
+			.button-certification-complete {float:right;margin:40px 0 0;background:#00b1ad;font-weight:bold;color:#fff;
+				&:disabled {background:#dedede;color:#c1c3c3;}
+			}
+		}
+		small {font-size:12px;color:#ec9c00;}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:10px 0 0;padding:20px 10%;
+		}
+	}
+
+	.button-right {text-align:right;}
+	.error {
+		input {border-bottom-color:#ef5113;color:#ef5113;}
+	}
+	input:focus {border-bottom-color:#00b1ad;}
+
+	// 대쉬보드
+	.dashboard {width:850px;margin:22px auto 0;
+		.time-infomation {float:left;width:434px;height:289px;margin:-7px 0 0 -7px;padding:7px 0 0 7px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503743279/KaicoinICO/web/bg_dashboard.png) no-repeat 0 0;background-size:100%;color:#fff;
+			.end-infomation {display:block;margin:33px 0 0;text-align:center;color:#fff;text-decoration:underline;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:30px 0 0;padding:45px 0 0;font-size:12px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0;padding:18px 0 0;font-size:12px;
+				}
+			}
+			.end-countdown {position:relative;padding:0 0 13px 0;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					padding:0 0 15px 0;
+				}
+			}
+			.count-time {margin:61px 0 0;font-size:40px;text-align:center;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:49px 0 0;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:44px 0 0;font-size:30px;letter-spacing:2px;
+				}
+			}
+			.date {position:absolute;bottom:0;left:50%;font-size:12px;color:#fff;line-height:1;}
+			.day {margin-left:-119px;
+				@media screen and (max-width: $break-medium) {
+					margin-left:-107px;
+				}
+			}
+			.hour {margin-left:-46px;
+				@media screen and (max-width: $break-medium) {
+					margin-left:-38px;
+				}
+			}
+			.minute {margin-left:34px;
+				@media screen and (max-width: $break-medium) {
+					margin-left:26px;
+				}
+			}
+			.second {margin-left:110px;
+				@media screen and (max-width: $break-medium) {
+					margin-left:96px;
+				}
+			}
+			.exchange-infomation {margin:46px 0 0;font-size:20px;font-weight:bold;text-align:center;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					width:100%;margin:45px 0 0;padding:0 10% 0;
+				}
+				@media screen and (max-width: $break-medium) {
+					width:100%;margin:30px 0 0;padding:0 10% 0;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				float:none;width:100%;height:270px;margin:0;padding:0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503743279/w_auto/KaicoinICO/web/bg_dashboard.png) no-repeat 50% 50%;background-size:110% 294px;border-radius:5px;box-shadow:7px 7px 3px #ccc;
+			}
+			@media screen and (max-width: $break-medium) {
+				float:none;width:100%;height:204px;margin:0;padding:0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503743279/w_auto/KaicoinICO/web/bg_dashboard.png) no-repeat 50% 50%;background-size:110% 224px;border-radius:5px;box-shadow:7px 7px 3px #ccc;
+			}
+		}
+		.ico-infomation {float:right;width:414px;height:270px;background:#fff;border:1px solid #ececec;border-radius:5px;
+			&:after {display:block;content:'';clear:both;}
+			.ico-data {margin:0 30px;
+				dt {padding:30px 0 0;font-size:12px;color:#909090;
+					&:first-child {padding-top:33px;}
+				}
+				dd {padding:12px 0 0;font-size:20px;
+					.total-sell {opacity:0.5;}
+					em {font-weight:bold;}
+					.text-small {font-size:14px;}
+					p {display:inline-block;
+						&:first-of-type {margin-right:54px;
+							@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+								margin-right:93px;
+							}
+						}
+					}
+					.person {display:none;}
+					.price {display:none;}
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 20px;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				float:none;width:100%;margin:30px 0 0;
+			}
+			@media screen and (max-width: $break-medium) {
+				float:none;width:100%;margin:20px 0 0;
+			}
+		}
+		h3 {margin:21px 0 0 30px;font-size:18px;font-weight:bold;
+			@media screen and (max-width: $break-large) {
+				font-size:16px;
+			}
+			@media screen and (max-width: $break-medium) {
+				margin-left:20px;
+			}
+		}
+		.ico-bonus {padding:0 0 29px;background:#fff;border:1px solid #ececec;border-radius:5px;clear:both;
+			.bonus-timetable {position:relative;width:816px;height:34px;margin:13px auto 0;padding:0 0 25px 0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/bul-bonus-default.png) no-repeat 0 0;box-sizing:content-box;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					width:100%;height:20px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/w_476,h_20/KaicoinICO/web/bul-bonus-default.png) no-repeat 50% 0;
+				}
+				@media screen and (max-width: $break-medium) {
+					width:100%;height:24px;margin-top:33px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503727384/KaicoinICO/web/bul-bonus-default-small.png) no-repeat 50% 0;
+				}
+			}
+			.week {position:absolute;top:0;left:50%;width:123px;padding:46px 0 0;font-size:12px;color:#c1c3c3;text-align:center;
+				&.active {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/bul-bonus-active.png) no-repeat 0 0;font-weight:bold;color:#414141;
+					@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+						background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/w_72,h_20/v1502866389/KaicoinICO/web/bul-bonus-active.png);
+					}
+					@media screen and (max-width: $break-medium) {
+						background-image:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503727384/KaicoinICO/web/bul-bonus-active-small.png);font-size:10px;
+					}
+				}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					width:72px;height:20px;
+				}
+				@media screen and (max-width: $break-medium) {
+					width:65px;height:24px;padding:36px 0 0;
+					span {display:block;}
+				}
+			}
+			.one {margin:0 0 0 -367px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 -214px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 -137px;
+				}
+			}
+			.two {margin:0 0 0 -215px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 -125px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 -86px;
+				}
+			}
+			.three {margin:0 0 0 -62px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 -36px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 -33px;
+				}
+			}
+			.four {margin:0 0 0 88px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 51px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 19px;
+				}
+			}
+			.five {margin:0 0 0 240px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:0 0 0 140px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:0 0 0 71px;
+				}
+			}
+			@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+				width:100%;margin:30px 0 0;
+			}
+			@media screen and (max-width: $break-medium) {
+				width:100%;margin:20px 0 0;
+			}
+		}
+		.ico-buy-address {position:relative;margin:20px 0 0;padding:0 0 28px;background:#fff;border:1px solid #ececec;border-radius:5px;
+			.address-detail-infomation {margin:0 30px;
+				.address {padding:23px 0 0;font-size:18px;}
+				.button-copy-url {width:116px;height:32px;margin:12px 0 0;border:2px solid #00b1ad;font-weight:bold;color:#00b1ad;}
+				.infomation {padding:19px 0 0 14px;font-size:12px;color:#ec9c00;text-indent:-14px;line-height:1.4;
+					@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+						padding:68px 0 0 14px;font-size:10px;
+					}
+					@media screen and (max-width: $break-medium) {
+						padding:146px 0 0 14px;font-size:10px;
+						br {content:' ';}
+					}
+				}
+				.active {position:absolute;top:88px;left:160px;display:inline-block;width:28px;height:21px;padding:11px 0 0;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503305918/KaicoinICO/web/clipboard-copy.png) no-repeat 0 11px;box-sizing:content-box;}
+				@media screen and (max-width: $break-medium) {
+					margin:0 20px;
+				}
+			}
+			.qrcode {position:absolute;top:55px;right:62px;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					top:134px;right:42px;
+				}
+				@media screen and (max-width: $break-medium) {
+					top:148px;left:20px;right:auto;
+				}
+			}
+		}
+		.ico-investment-application-form {position:relative;margin:20px 0 0;padding:0 0 28px;background:#fff;border:1px solid #ececec;border-radius:5px;
+			input[type="text"] {width:75.6%;height:29px;margin:4px 3.2% 0 0;border-left:0;border-right:0;border-top:0;border-bottom:1px solid #c1c3c3;font-size:16px;color:#414141;
+				@media screen and (max-width: $break-large) {
+					width:100%;
+				}
+				&:focus {border-bottom-color:#00b1ad;}
+				&.error {border-bottom-color:#ef5113;color:#ef5113;}
+			}
+			.investment-infomation {margin:11px 30px 0;font-size:12px;
+				@media screen and (max-width: $break-medium) {
+					margin:11px 20px 0;
+				}
+			}
+			.input-form {margin:14px 0 0;padding:0 30px;
+				button {@include fill_button(141px, 32px);
+					@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+						position:absolute;top:7.8rem;right:2rem;
+					}
+					@media screen and (max-width: $break-medium) {
+						position:absolute;top:7.8rem;right:20px;
+					}
+				}
+				span.error {display:inline-block;margin:11px 0 0;padding:0 0 0 18px;background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503807641/KaicoinICO/web/bul-error.png) no-repeat 1px 50%;background-size:15px 15px;font-size:12px;color:#ef5113;visibility:hidden;
+					@media screen and (max-width: $break-medium) {
+						margin-top:55px;
+					}
+				}
+				@media screen and (max-width: $break-medium) {
+					padding:0 20px;
+				}
+			}
+			.send-ethereum-infomation {margin:13px 0 0 30px;font-size:12px;color:#ec9c00;
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					margin:31px 30px 0;font-size:10px;
+				}
+				@media screen and (max-width: $break-medium) {
+					margin:13px 20px 0;font-size:10px;
+				}
+			}
+			.check-ethereum-infomation {margin:26px 30px 0;font-size:12px;line-height:1.7;
+				em {font-weight:bold;color:#00b1ad;word-break:break-all;}
+				&.tablet {display:none;}
+				@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+					display:none;
+					&.tablet {display:block;}
+				}
+				@media screen and (max-width: $break-medium) {
+					display:none;margin:56px 20px 0;
+					&.tablet {display:block;}
+				}
+			}
+			.ehterium-wallet {margin:11px 30px 0;font-size:16px;
+				a {word-wrap:break-word;word-break:break-all;white-space:pre-wrap;}
+				span {opacity:0.3;}
+				@media screen and (max-width: $break-medium) {
+					margin:11px 20px 0;
+				}
+			}
+			button:disabled {@include default_button_style('fill_disable_button');}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			width:100%;padding:0 10% 0;
+		}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:0;padding:0 5% 0;
+		}
+	}
+	@media screen and (max-width: $break-medium) {
+		padding:80px 0 0;
+	}
+}
+
+footer {margin:50px 0 0;background:#414141;font-size:12px;color:#fff;
+	.footer-laout {width:850px;margin:0 auto;padding:60px 0 46px;overflow:hidden;
+		.infomation {float:left;margin:5px 0 0;
+			li {padding-top:7px;
+				&:first-child {padding-top:0;}
+			}
+			a {font-size:12px;color:#fff;
+				em {text-decoration:underline;}
+			}
+			@media screen and (max-width: $break-medium) {
+				float:none;text-align:center;
+			}
+		}
+		.sns {float:right;
+			li {float:left;
+				&:first-child a {margin-left:0;}
+				a {display:block;width:42px;height:43px;margin:0 0 0 20px;text-indent:-9999em;line-height:0;}
+				.twitter {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/twitter.png) no-repeat 50%;}
+				.facebook {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503807444/KaicoinICO/web/facebook.png) no-repeat 50%;background-size:100%;}
+				.slack {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/KaicoinICO/web/slack.png) no-repeat 50%;}
+				.letter {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503807443/KaicoinICO/web/letter.png) no-repeat 50%;background-size:100%;}
+			}
+			@media screen and (max-width: $break-medium) {
+				float:none;width:104px;margin:30px auto 0;
+			}
+		}
+		@media screen and (min-width: $break-medium) and (max-width: $break-large) {
+			width:100%;margin:0 auto;padding:60px 10% 46px;
+		}
+		@media screen and (max-width: $break-medium) {
+			width:100%;margin:0 auto;padding:19px 5% 25px;
+		}
+	}
+	&.fixed {position:fixed;bottom:0;width:100%;}
+	@media screen and (max-width: $break-medium) {
+		margin:30px 0 0;
+	}
+}
+.below-table-menu {position:fixed;top:0;right:0;display:none;width:0;height:100%;overflow:hidden;z-index:1;
+	background: #00b1ad;
+	background: -moz-linear-gradient(top, #00b1ad 0%, #5e35e3 100%);
+	background: -webkit-linear-gradient(top, #00b1ad 0%,#5e35e3 100%);
+	background: linear-gradient(to bottom, #00b1ad 0%,#5e35e3 100%);
+	animation: menu-off 0.1s ease-in-out;animation-fill-mode: forwards;transition: all 0.3s linear;
+	-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0);
+
+	&.active {display:block;animation: menu-on 0.1s ease-in-out;animation-fill-mode: forwards;}
+	@keyframes menu-on {
+		from {width:0;}
+		to {width:100%;}
+	}
+	@keyframes menu-off {
+		from {width:100%;}
+		to {width:0;}
+	}
+	.header-gnb {margin:111px 0 0;
+		li {padding:54px 0 0;text-align:center;
+			a {display:inline-block;font-size:24px;color:#fff;line-height:1.5;
+				&.active {border-bottom:3px solid #ffce6f;font-weight:bold;}
+				@media screen and (max-width: $break-medium) {
+					font-size:20px;
+				}
+			}
+			@media screen and (max-width: $break-medium) {
+				padding:14px 0 0;
+			}
+		}
+		@media screen and (max-width: $break-medium) {
+			margin:89px 0 0;
+		}
+	}
+	.header-lnb {display:none;margin:39px auto 0;overflow:hidden;
+		li {position:relative;margin:0 24px 0 0;
+			a {font-weight:bold;color:#fff;}
+		}
+		.languageArea {margin:0;text-align:center;
+			.design-selectbox {display:none;}
+			.select-language {display:inline-block;margin:0;padding:0;background:transparent;border:0;font-size:12px;color:#fff;vertical-align:top;}
+			.div-selectbox {display:none;}
+		}
+		@media screen and (max-width: $break-medium) {
+			display:block;
+		}
+	}
+	// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b1ad', endColorstr='#5e35e3',GradientType=0 ); /* IE6-9 */
+}
+.blockUI {display:none;background:#fff;border-radius:5px;}
+.popup {padding:97px 0 30px;border:0;
+	p {font-size:12px;color:#414141;line-height:1.5;}
+	button {margin:26px 0 0;font-size:12px;font-weight:bold;@include fill_button(88px, 32px);}
+	&.error {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503807084/KaicoinICO/web/icon-fail.png) no-repeat 50% 35px;background-size:44px 44px;}
+	&.success {background:url(http://res.cloudinary.com/dhjjs2uz3/image/upload/v1503807096/KaicoinICO/web/icon-success.png) no-repeat 50% 35px;background-size:44px 44px;}
+}
+#loader {display:none;}
+.server-error {width:500px;margin:100px auto 0;padding:50px 0 30px;
+	.icon-error {display:block;margin:0 auto;
+	}
+	h1 {margin:44px 0 0;font-size:28px;font-weight:bold;color:#414141;text-align:center;line-height:1.8;
+		@media screen and (max-width: $break-medium) {
+			font-size:20px;
+		}
+	}
+	.error-message {margin:27px 0 0;font-size:18px;color:#414141;text-align:center;line-height:1.6;
+		@media screen and (max-width: $break-medium) {
+			padding:0 10%;font-size:14px;
+		}
+	}
+	.page-move {width:172px;margin:35px auto 0;
+		li {padding:20px 0 0;}
+	}
+	.button-prev {display:block;width:172px;height:32px;background:#00b1ad;font-size:14px;line-height:32px;color:#fff;border-radius:25px;text-align:center;}
+	.button-home {display:block;width:172px;height:32px;border:2px solid #00b1ad;font-size:14px;line-height:32px;color:#00b1ad;border-radius:25px;text-align:center;}
+	@media screen and (max-width: $break-medium) {
+		width:100%;margin:0;padding:0 0 30px;background:#fff;
+	}
+}
