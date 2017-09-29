@@ -432,6 +432,7 @@
 			, "tab-wallet": "KAICOIN Wallet"
 			, "payment-history-title": "Payment History"
 			, "account-balance": "Balance"
+			, "history-zero": "There are no deposits."
 		},
 		"login": {
 			"login-title": "KAICOIN Login"

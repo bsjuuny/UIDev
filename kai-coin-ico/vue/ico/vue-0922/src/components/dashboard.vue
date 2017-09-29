@@ -113,9 +113,7 @@
 						</li>
 					</ul>
 					<ul class="account-history" v-else>
-						<li class="history-0">
-							입금된 내역이 없습니다.
-						</li>
+						<li class="history-0" v-html="$t('dashboard.history-zero')"></li>
 					</ul>
 				</div>
 			</div>
